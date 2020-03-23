@@ -50,7 +50,11 @@ def parse(path_webdriver, path_main_dir, url_location):
 
 def main(url_location):
     path_webdriver = 'chromedriver.exe'
-    path_main_dir = 'E:/Users/vasy/Desktop'
+    path_main_dir = '../attractions'
+    try:
+        os.mkdir(path_main_dir)
+    except:
+        pass
     parse(path_webdriver, path_main_dir, url_location)
 
 
