@@ -5,7 +5,7 @@ import os
 import sys
 
 from src.find import find_description, find_image_link, find_word_list, find_geo_coordinates, find_full_address
-from src.save import save_description, save_geo_coordinates, save_full_address, save_word_list, save_photo
+from src.save import save, save_photo
 
 
 def open_browser(path_webdriver):
@@ -32,14 +32,13 @@ def parse(path_webdriver, path_main_dir, url_location):
         full_address = find_full_address(browser)
 
         path_save_dir = path_main_dir + '/' + name
-        os.mkdir(path_save_dir)
-
+        try:
+            os.mkdir(path_save_dir)
+        except:
+            pass
         # сохранение
-        save_description(description, path_save_dir)
-        save_geo_coordinates(geo_coordinates, path_save_dir)
-        save_full_address(full_address, path_save_dir)
-        save_word_list(Counter(word_list).most_common(30), path_save_dir)
-        save_photo(image_link, path_save_dir)
+        photo_path = save_photo(image_link, path_save_dir)
+        save(name, description, geo_coordinates, full_address, Counter(word_list).most_common(30), photo_path)
 
     except Exception as e:
         print('Ошибка в программе, обратитесь к разработчику.')

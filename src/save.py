@@ -1,26 +1,24 @@
+import os
 from urllib.request import urlretrieve
+import psycopg2
+
+conn = psycopg2.connect(host='ec2-54-247-79-178.eu-west-1.compute.amazonaws.com',
+                        user='jtiewymsqrsflb',
+                        password='25c2468e8a3af8a1a1bd12d7eebb6ad0e6f0cc243f1c1430993d40c210b667c9',
+                        dbname='dcgnunfjhhkmdf')
+
+
+def save(name, description, geo_coordinates, full_address, words, photo_path):
+    cursor = conn.cursor()
+    sql = "insert into attractions (name, description, geo_coordinates, full_address, word_list, photo_path) " \
+          "values ('" + name + "', '" + description + "', '" + geo_coordinates + "', '" + full_address + "', '" + \
+          str(words).replace('[', '').replace(']', '').replace('\'', '') + "', '" + photo_path + "')"
+    cursor.execute(sql)
+    conn.commit()
 
 
 def save_photo(image_link, path_save_dir):
-    urlretrieve(image_link, path_save_dir + '/img.jpg')
-
-
-def save_description(text, path_save_dir):
-    with open(path_save_dir + '/description.txt', 'w', encoding='utf8') as f:
-        f.write(text)
-
-
-def save_geo_coordinates(text, path_save_dir):
-    with open(path_save_dir + '/geo_coordinates.txt', 'w', encoding='utf8') as f:
-        f.write(text)
-
-
-def save_full_address(text, path_save_dir):
-    with open(path_save_dir + '/full_address.txt', 'w', encoding='utf8') as f:
-        f.write(text)
-
-
-def save_word_list(words, path_save_dir):
-    with open(path_save_dir + '/word_list.txt', 'w', encoding='utf8') as f:
-        for word in words:
-            f.write(str(word) + "\n")
+    path = path_save_dir + '/img.jpg'
+    urlretrieve(image_link, path)
+    path = os.path.abspath(path_save_dir + '/img.jpg')
+    return path
