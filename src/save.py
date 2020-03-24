@@ -1,5 +1,3 @@
-import os
-from urllib.request import urlretrieve
 import psycopg2
 
 conn = psycopg2.connect(host='ec2-54-247-79-178.eu-west-1.compute.amazonaws.com',
@@ -15,10 +13,3 @@ def save(name, description, geo_coordinates, full_address, words, photo_url):
           str(words).replace('[', '').replace(']', '').replace('\'', '') + "', '" + photo_url + "')"
     cursor.execute(sql)
     conn.commit()
-
-
-def save_photo(image_link, path_save_dir):
-    path = path_save_dir + '/img.jpg'
-    urlretrieve(image_link, path)
-    path = os.path.abspath(path_save_dir + '/img.jpg')
-    return path

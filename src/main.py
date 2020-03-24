@@ -1,11 +1,12 @@
-from selenium import webdriver
-from selenium.common.exceptions import WebDriverException
-from collections import Counter
 import os
 import sys
+from collections import Counter
+
+from selenium import webdriver
+from selenium.common.exceptions import WebDriverException
 
 from src.find import find_description, find_image_link, find_word_list, find_geo_coordinates, find_full_address
-from src.save import save, save_photo
+from src.save import save
 
 
 def open_browser(path_webdriver):
