@@ -32,7 +32,10 @@ def find_word_list(browser):
 
 
 def find_image_link(browser):
-    infobox_image = browser.find_elements_by_class_name('infobox-image')[0]
+    infobox_images = browser.find_elements_by_class_name('infobox-image')
+    if len(infobox_images) == 0:
+        return 'Фото не найдено'
+    infobox_image = infobox_images[0]
     images = infobox_image.find_elements_by_tag_name('img')
     image_links = []
     for image in images:

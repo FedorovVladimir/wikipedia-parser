@@ -8,11 +8,11 @@ conn = psycopg2.connect(host='ec2-54-247-79-178.eu-west-1.compute.amazonaws.com'
                         dbname='dcgnunfjhhkmdf')
 
 
-def save(name, description, geo_coordinates, full_address, words, photo_path):
+def save(name, description, geo_coordinates, full_address, words, photo_url):
     cursor = conn.cursor()
     sql = "insert into attractions (name, description, geo_coordinates, full_address, word_list, photo_path) " \
           "values ('" + name + "', '" + description + "', '" + geo_coordinates + "', '" + full_address + "', '" + \
-          str(words).replace('[', '').replace(']', '').replace('\'', '') + "', '" + photo_path + "')"
+          str(words).replace('[', '').replace(']', '').replace('\'', '') + "', '" + photo_url + "')"
     cursor.execute(sql)
     conn.commit()
 

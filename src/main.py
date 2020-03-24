@@ -36,13 +36,17 @@ def parse(path_webdriver, path_main_dir, url_location):
             os.mkdir(path_save_dir)
         except:
             pass
-        # сохранение
-        photo_path = save_photo(image_link, path_save_dir)
-        save(name, description, geo_coordinates, full_address, Counter(word_list).most_common(30), photo_path)
 
+        # сохранение
+        save(name, description, geo_coordinates, full_address, Counter(word_list).most_common(30), image_link)
+
+        print('Достопримечательность "'+ name + '" успешно сохранена')
     except Exception as e:
-        print('Ошибка в программе, обратитесь к разработчику.')
-        print(e)
+        if 'duplicate key value violates unique constraint "attractions_name_uindex"' in str(e):
+            print('Достопримечательность с таким названием уже есть в базе')
+        else:
+            print('Ошибка в программе, обратитесь к разработчику.')
+            print(str(e))
     finally:
         browser.quit()
 
