@@ -1,5 +1,6 @@
 import psycopg2
 
+
 conn = psycopg2.connect(host='ec2-54-247-79-178.eu-west-1.compute.amazonaws.com',
                         user='jtiewymsqrsflb',
                         password='25c2468e8a3af8a1a1bd12d7eebb6ad0e6f0cc243f1c1430993d40c210b667c9',

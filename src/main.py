@@ -46,7 +46,7 @@ def parse(path_webdriver, url_location):
 
 
 def main(url_location):
-    path_webdriver = 'chromedriver.exe'
+    path_webdriver = 'chromedriver.exe' # путь к драйверу
     parse(path_webdriver, url_location)
 
 
