@@ -1,4 +1,3 @@
-import os
 import sys
 from collections import Counter
 
@@ -19,7 +18,7 @@ def open_browser(path_webdriver):
         exit(1)
 
 
-def parse(path_webdriver, path_main_dir, url_location):
+def parse(path_webdriver, url_location):
     browser = open_browser(path_webdriver)
     try:
         browser.get(url_location)
@@ -31,12 +30,6 @@ def parse(path_webdriver, path_main_dir, url_location):
         word_list = find_word_list(browser)
         geo_coordinates = find_geo_coordinates(browser)
         full_address = find_full_address(browser)
-
-        path_save_dir = path_main_dir + '/' + name
-        try:
-            os.mkdir(path_save_dir)
-        except:
-            pass
 
         # сохранение
         save(name, description, geo_coordinates, full_address, Counter(word_list).most_common(30), image_link)
@@ -54,12 +47,7 @@ def parse(path_webdriver, path_main_dir, url_location):
 
 def main(url_location):
     path_webdriver = 'chromedriver.exe'
-    path_main_dir = '../attractions'
-    try:
-        os.mkdir(path_main_dir)
-    except:
-        pass
-    parse(path_webdriver, path_main_dir, url_location)
+    parse(path_webdriver, url_location)
 
 
 if __name__ == '__main__':
